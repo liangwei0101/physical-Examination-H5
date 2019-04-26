@@ -1,13 +1,13 @@
 import HttpRequest from '@/axios/api.request'
 
-export const UserQryAction = () => {
+export const branchQryAction = () => {
   return HttpRequest.request({
     url: 'branch/',
     method: 'get'
   })
 }
 
-export const UserAddAction = (parameter) => {
+export const branchAddAction = (parameter) => {
   return HttpRequest.request({
     url: 'branch/',
     method: 'post',
