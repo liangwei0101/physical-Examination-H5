@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <mu-paper :z-depth="1" class="demo-list-wrap">
+  <div class="home" style="width: 100%; padding:0">
+    <mu-paper>
       <mu-appbar color="cyan">
         预约
       </mu-appbar>
@@ -53,7 +53,6 @@ export default {
 <style>
 .demo-list-wrap {
   width: 100%;
-  max-width: 360px;
   overflow: hidden;
 }
 </style>
