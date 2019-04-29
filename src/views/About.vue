@@ -1,25 +1,110 @@
 <template>
-  <mu-container style="width: 100%; padding:0">
-    <mu-card>
-      <mu-card-header title="Myron Avatar" sub-title="sub title">
-        <mu-avatar slot="avatar">
-          <img src="branch.jpg">
-        </mu-avatar>
-      </mu-card-header>
-      <mu-card-media title="Image Title" sub-title="Image Sub Title">
-        <img src="branch.jpg">
-      </mu-card-media>
-      <mu-card-title title="Content Title" sub-title="Content Title"></mu-card-title>
-      <mu-card-text>
-        散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-        调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-        似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-        找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
-      </mu-card-text>
-      <mu-card-actions>
-        <mu-button flat>Action 1</mu-button>
-        <mu-button flat>Action 2</mu-button>
-      </mu-card-actions>
-    </mu-card>
-  </mu-container>
+  <mu-card style="width: 100%; padding:0px">
+    <mu-appbar color="teal">
+      <mu-button icon slot="left" @click="goHome">
+        <i class="material-icons">
+          keyboard_backspace
+        </i>
+      </mu-button>
+    </mu-appbar>
+
+    <mu-card-media :title="branchObj.name" :sub-title="branchObj.address">
+      <img src="branch.jpg" />
+    </mu-card-media>
+    <mu-card-title title="体检项目"></mu-card-title>
+    <mu-card-text>
+      {{ projectShowStr }}
+    </mu-card-text>
+    <mu-card-actions>
+      <mu-button flat @click="goSubscribe">
+        <i class="material-icons">
+          add_shopping_cart
+        </i>
+      </mu-button>
+    </mu-card-actions>
+  </mu-card>
 </template>
+
+<script>
+import {
+  branchQryAction,
+  branchByIdQryAction,
+  projectQryAction
+} from "../api/api.js";
+import { constants } from "crypto";
+export default {
+  data() {
+    return {
+      branchList: [],
+      branchNo: "",
+      branchObj: {},
+      projectList: [],
+      projectShowStr: ""
+    };
+  },
+  methods: {
+    UserQry() {
+      branchQryAction().then(res => {
+        this.branchList = res.data.data;
+      });
+    },
+    selectItemClick(branchNo) {
+      this.$router.push({
+        path: "/about",
+        query: {
+          id: this.branchNo
+        }
+      });
+    },
+    goHome() {
+      this.$router.push({
+        path: "/"
+      });
+    },
+    goSubscribe() {
+      this.$router.push({
+        path: "/subscribe"
+      });
+    },
+    branchByIdQry(branchNo) {
+      branchByIdQryAction(branchNo).then(res => {
+        this.branchObj = res.data.data;
+        // console.log("------------------")
+        // console.log(this.branchObj)
+        // console.log("------------------")
+      });
+    },
+    projectQry() {
+      projectQryAction().then(res => {
+        this.projectList = res.data.data;
+        // console.log("------------------");
+        // console.log(res.data.data);
+        // console.log("------------------");
+
+        for (let i = 0; i < this.projectList.length; i++) {
+          this.projectShowStr +=
+            (i + 1).toString() + ":" + this.projectList[i].name + "、";
+        }
+      });
+    }
+  },
+  mounted() {
+    this.branchNo = this.$route.query.id;
+    this.branchByIdQry(this.branchNo);
+    this.projectQry();
+  }
+};
+</script>
+
+<style>
+.demo-list-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.card {
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+</style>
