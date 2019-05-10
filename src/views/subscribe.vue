@@ -20,23 +20,6 @@
       <mu-divider />
     </mu-list>
 
-    <mu-chip style="margin-top:10px;" class="demo-chip" color="primary">
-      {{ nameShowStr }}
-    </mu-chip>
-
-    <mu-list v-for="item in projectList" :key="item.id">
-      <mu-list-item button :ripple="false">
-        <mu-list-item-title>{{ item.name }}</mu-list-item-title>
-        <mu-list-item-action>
-          <mu-icon value="info"></mu-icon>
-        </mu-list-item-action>
-      </mu-list-item>
-      <mu-divider />
-    </mu-list>
-
-    <mu-card-actions>
-      <mu-button color="primary">购买</mu-button>
-    </mu-card-actions>
   </mu-paper>
 </template>
 
