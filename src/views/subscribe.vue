@@ -1,5 +1,6 @@
 <template>
   <mu-paper style="width: 100%; padding:0">
+
     <mu-appbar color="teal">
       <mu-button icon slot="left" @click="back">
         <i class="material-icons">
@@ -9,7 +10,7 @@
     </mu-appbar>
 
     <mu-list v-for="item in mealList" :key="item.id">
-      <mu-list-item button :ripple="false" @click="mealProjectByIdQry(item.id)">
+      <mu-list-item button :ripple="false" @click="userAdd(item.id)">
         <mu-list-item-action>
           <mu-icon value="grade"></mu-icon>
         </mu-list-item-action>
@@ -30,7 +31,8 @@ export default {
     return {
       mealList: [],
       projectList: [],
-      nameShowStr: ""
+      nameShowStr: "",
+      branchNo: ''
     };
   },
   methods: {
@@ -48,27 +50,22 @@ export default {
     mealQry() {
       mealQryAction().then(res => {
         this.mealList = res.data.data;
-        // console.log("------------------");
-        // console.log(res.data.data);
-        // console.log("------------------");
         this.mealProjectByIdQry(this.mealList[0].id);
         this.nameShowStr = this.mealList[0].name;
       });
     },
-    mealProjectByIdQry(id) {
-      this.mealList.forEach(element => {
-        if (element.id === id) {
-          this.nameShowStr = element.name;
+    userAdd(id) {
+       this.$router.push({
+        path: "/user",
+         query: {
+          id: this.branchNo
         }
-      });
-
-      mealProjectByIdQryAction(id).then(res => {
-        this.projectList = res.data.data;
-      });
+      })
     }
   },
   mounted() {
     this.mealQry();
+    this.branchNo = this.$route.query.id;
   }
 };
 </script>

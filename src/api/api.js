@@ -43,5 +43,19 @@ export const branchAddAction = (parameter) => {
   })
 }
 
+export const UserAddAction = (parameter) => {
+  return HttpRequest.request({
+    url: '/user',
+    method: 'post',
+    data: parameter
+  })
+}
 
+export const subscribeAddAction = (parameter) => {
+  return HttpRequest.request({
+    url: '/subscribe',
+    method: 'post',
+    data: parameter
+  })
+}
 

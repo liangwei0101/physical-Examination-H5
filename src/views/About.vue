@@ -63,23 +63,17 @@ export default {
     },
     goSubscribe() {
       this.$router.push({
-        path: "/subscribe"
+        path: "/user"
       });
     },
     branchByIdQry(branchNo) {
       branchByIdQryAction(branchNo).then(res => {
         this.branchObj = res.data.data;
-        // console.log("------------------")
-        // console.log(this.branchObj)
-        // console.log("------------------")
       });
     },
     projectQry() {
       projectQryAction().then(res => {
         this.projectList = res.data.data;
-        // console.log("------------------");
-        // console.log(res.data.data);
-        // console.log("------------------");
 
         for (let i = 0; i < this.projectList.length; i++) {
           this.projectShowStr +=
