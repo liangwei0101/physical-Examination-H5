@@ -125,7 +125,7 @@ export default {
           mealId: this.form.meal
         };
         subscribeAddAction(addNumberValidateForm).then(res => {
-            alert('121212')
+            this.$toast.success('预约成功！');
         });
       });
     }
